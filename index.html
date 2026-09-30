@@ -71,17 +71,680 @@
             <!-- Desktop Actions -->
             <div class="hidden md:flex items-center gap-3">
 
-                <button id="searchButton"
+                <button id="searchButton" type="button" aria-label="Cari produk"
                     class="w-10 h-10 rounded-full hover:bg-gray-100 transition">
                     🔍
                 </button>
 
-                <button id="cartButton"
+                <button id="cartButton" type="button" aria-label="Buka keranjang"
                     class="relative w-10 h-10 rounded-full hover:bg-gray-100 transition">
 
                     🛒
 
-                    <span id="cartCount"
+                    <span class="cart-count absolute -top-1 -right-1 w-5 h-5 text-xs
+                               bg-black text-white rounded-full
+                               flex items-center justify-center">
+                        0
+                    </span>
+
+                </button>
+
+            </div>
+
+            <!-- Mobile Actions -->
+            <div class="flex items-center gap-1 md:hidden">
+
+                <button id="mobileSearchButton" type="button" aria-label="Cari produk"
+                    class="w-10 h-10 rounded-full hover:bg-gray-100 transition">
+                    🔍
+                </button>
+
+                <button id="mobileCartButton" type="button" aria-label="Buka keranjang"
+                    class="relative w-10 h-10 rounded-full hover:bg-gray-100 transition">
+                    🛒
+                    <span class="cart-count absolute -top-1 -right-1 w-5 h-5 text-xs
+                               bg-black text-white rounded-full
+                               flex items-center justify-center">
+                        0
+                    </span>
+                </button>
+
+                <button id="menuButton" type="button" aria-label="Buka menu"
+                    aria-expanded="false" aria-controls="mobileMenu"
+                    class="text-2xl">
+                    ☰
+                </button>
+
+            </div>
+
+            <!-- Mobile Button -->
+            <button id="menuButtonLegacy"
+                class="hidden md:hidden text-2xl">
+                ☰
+            </button>
+
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu"
+            class="hidden md:hidden border-t border-gray-200 py-4">
+
+            <div class="flex flex-col gap-4">
+
+                <a href="#produk" class="mobile-link">
+                    Produk
+                </a>
+
+                <a href="#kategori" class="mobile-link">
+                    Kategori
+                </a>
+
+                <a href="#tukar" class="mobile-link">
+                    Tukar Tambah
+                </a>
+
+                <a href="#keunggulan" class="mobile-link">
+                    Keunggulan
+                </a>
+
+                <a href="#faq" class="mobile-link">
+                    Bantuan
+                </a>
+
+            </div>
+        </div>
+
+    </nav>
+</header>
+
+
+<!-- ================= HERO ================= -->
+<section class="bg-gray-50">
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
+                py-16 lg:py-24">
+
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+
+            <!-- Hero Text -->
+            <div>
+
+                <span class="inline-block mb-5 px-4 py-2
+                             bg-white rounded-full
+                             text-xs font-bold tracking-widest">
+                    GADGET MARKETPLACE
+                </span>
+
+                <h1 class="text-5xl sm:text-6xl lg:text-7xl
+                           font-black tracking-tight leading-none">
+
+                    Upgrade Gadget.
+                    <span class="text-gray-500">
+                        Tanpa Ribet.
+                    </span>
+
+                </h1>
+
+                <p class="mt-6 text-gray-600 text-lg
+                          leading-relaxed max-w-xl">
+
+                    Temukan gadget berkualitas dengan harga terbaik.
+                    Jual gadget lama atau tukarkan dengan perangkat
+                    baru dengan proses yang mudah dan aman.
+
+                </p>
+
+                <div class="mt-8 flex flex-col sm:flex-row gap-3">
+
+                    <a href="#produk"
+                       class="px-6 py-3 rounded-xl bg-black text-white
+                              font-semibold text-center
+                              hover:bg-gray-800 transition">
+
+                        Belanja Sekarang
+
+                    </a>
+
+                    <a href="#tukar"
+                       class="px-6 py-3 rounded-xl bg-white
+                              border border-gray-300
+                              font-semibold text-center
+                              hover:bg-gray-100 transition">
+
+                        Tukar Gadget
+
+                    </a>
+
+                </div>
+
+                <!-- Stats -->
+                <div class="mt-10 grid grid-cols-3 gap-4 max-w-lg">
+
+                    <div>
+                        <p class="text-2xl font-black">16</p>
+                        <p class="text-sm text-gray-500">
+                            Model tersedia
+                        </p>
+                    </div>
+
+                    <div>
+                        <p class="text-2xl font-black">9</p>
+                        <p class="text-sm text-gray-500">
+                            Brand
+                        </p>
+                    </div>
+
+                    <div>
+                        <p class="text-2xl font-black">4.9/5</p>
+                        <p class="text-sm text-gray-500">
+                            Rating toko
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Hero Image -->
+            <div class="relative">
+
+                <img
+                    src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=1000&q=80"
+                    alt="Smartphone"
+                    class="w-full h-[400px] sm:h-[500px]
+                           object-cover rounded-3xl shadow-2xl">
+
+                <div class="absolute bottom-6 left-6
+                            bg-white rounded-2xl p-5 shadow-xl">
+
+                    <p class="text-sm text-gray-500">
+                        Produk Pilihan
+                    </p>
+
+                    <p class="font-bold mt-1">
+                        ⭐ 4.9 / 5
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= KATEGORI ================= -->
+<section id="kategori"
+    class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+
+    <div class="text-center mb-12">
+
+        <p class="text-sm font-bold tracking-widest text-gray-500">
+            KATEGORI
+        </p>
+
+        <h2 class="text-3xl sm:text-4xl font-black mt-2">
+            Pilih Gadget Favoritmu
+        </h2>
+
+    </div>
+
+
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+
+        <button class="category-card
+                       p-6 rounded-2xl bg-gray-100
+                       hover:bg-black hover:text-white
+                       transition"
+                type="button">
+
+            <div class="text-4xl mb-4">📱</div>
+
+            <h3 class="font-bold text-lg">
+                Smartphone
+            </h3>
+
+            <p class="text-sm opacity-70 mt-1">
+                16 model tersedia
+            </p>
+
+        </button>
+
+
+        <button class="category-card p-6 rounded-2xl bg-gray-100 text-left opacity-70 cursor-not-allowed"
+                type="button" disabled>
+            <div class="text-4xl mb-4">💻</div>
+            <h3 class="font-bold text-lg">Laptop</h3>
+            <p class="text-sm opacity-70 mt-1">Segera hadir</p>
+        </button>
+
+
+        <button class="category-card p-6 rounded-2xl bg-gray-100 text-left opacity-70 cursor-not-allowed"
+                type="button" disabled>
+            <div class="text-4xl mb-4">🎧</div>
+            <h3 class="font-bold text-lg">Aksesoris</h3>
+            <p class="text-sm opacity-70 mt-1">Segera hadir</p>
+        </button>
+
+
+        <button class="category-card p-6 rounded-2xl bg-gray-100 text-left opacity-70 cursor-not-allowed"
+                type="button" disabled>
+            <div class="text-4xl mb-4">⌚</div>
+            <h3 class="font-bold text-lg">Elektronik</h3>
+            <p class="text-sm opacity-70 mt-1">Segera hadir</p>
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= PRODUK ================= -->
+<section id="produk"
+    class="bg-gray-50 py-20">
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="mb-8 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+
+            <div>
+
+                <p class="text-sm font-bold tracking-widest text-gray-500">
+                    PRODUK TERBARU
+                </p>
+
+                <h2 class="text-3xl sm:text-4xl font-black mt-2">
+                    Gadget Pilihan
+                </h2>
+
+            </div>
+
+            <div class="grid w-full grid-cols-1 gap-3 sm:grid-cols-3 lg:max-w-3xl">
+                <label class="sr-only" for="productSearch">Cari produk</label>
+                <input
+                    id="productSearch"
+                    type="search"
+                    placeholder="Cari nama atau brand..."
+                    class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 outline-none focus:ring-2 focus:ring-black">
+
+                <label class="sr-only" for="brandFilter">Filter brand</label>
+                <select id="brandFilter"
+                    class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 outline-none focus:ring-2 focus:ring-black">
+                    <option value="all">Semua brand</option>
+                    <option value="Apple">Apple</option>
+                    <option value="Samsung">Samsung</option>
+                    <option value="Xiaomi">Xiaomi</option>
+                    <option value="OPPO">OPPO</option>
+                    <option value="Vivo">Vivo</option>
+                    <option value="Google">Google</option>
+                    <option value="ASUS">ASUS</option>
+                    <option value="OnePlus">OnePlus</option>
+                    <option value="Realme">Realme</option>
+                </select>
+
+                <label class="sr-only" for="sortFilter">Urutkan produk</label>
+                <select id="sortFilter"
+                    class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 outline-none focus:ring-2 focus:ring-black">
+                    <option value="default">Urutan rekomendasi</option>
+                    <option value="low">Harga terendah</option>
+                    <option value="high">Harga tertinggi</option>
+                    <option value="rating">Rating tertinggi</option>
+                </select>
+            </div>
+
+        </div>
+
+        <p id="productResultCount" class="mb-4 text-sm text-gray-500" aria-live="polite"></p>
+
+        <div id="productGrid"
+             class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4"
+             aria-live="polite">
+
+            <!-- Product cards are rendered from the catalog in script.js. -->
+
+        </div>
+
+        <div id="noResult" class="hidden py-16 text-center">
+            <div class="mb-4 text-5xl">📱</div>
+            <h3 class="text-xl font-bold">Produk tidak ditemukan</h3>
+            <p class="mt-2 text-gray-500">Coba kata pencarian atau brand yang berbeda.</p>
+        </div>
+
+        <nav id="productPagination"
+             class="mt-10 flex justify-center items-center gap-2"
+             aria-label="Halaman produk"></nav>
+
+    </div>
+
+</section>
+
+
+<!-- ================= TRADE IN ================= -->
+<section id="tukar"
+    class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+
+    <div class="grid lg:grid-cols-2
+                rounded-3xl overflow-hidden
+                bg-black text-white">
+
+        <div class="p-8 sm:p-12 lg:p-16">
+
+            <p class="text-sm font-bold tracking-widest text-gray-400">
+                TRADE IN
+            </p>
+
+            <h2 class="text-3xl sm:text-4xl font-black mt-3">
+                Gadget Lama Bisa Jadi Uang.
+            </h2>
+
+            <p class="text-gray-400 mt-5 leading-relaxed">
+
+                Jangan biarkan gadget lama hanya tersimpan.
+                Tukarkan gadget kamu dan dapatkan harga terbaik.
+
+            </p>
+
+            <ul class="mt-8 space-y-4">
+
+                <li>✓ Proses mudah</li>
+                <li>✓ Penilaian transparan</li>
+                <li>✓ Harga kompetitif</li>
+                <li>✓ Pembayaran cepat</li>
+
+            </ul>
+
+            <a href="#faq"
+                class="mt-8 inline-block rounded-xl bg-white px-6 py-3 font-bold text-black transition hover:bg-gray-200">
+                Tanya tentang tukar tambah
+            </a>
+
+        </div>
+
+
+        <img
+            src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=1000&q=80"
+            alt="Smartphone untuk layanan tukar tambah"
+            class="w-full h-full min-h-[350px]
+                   object-cover">
+
+    </div>
+
+</section>
+
+
+<!-- ================= PROMO ================= -->
+<section class="px-4 sm:px-6 lg:px-8 pb-20">
+
+    <div class="max-w-7xl mx-auto
+                bg-gray-100 rounded-3xl
+                p-8 sm:p-12
+                flex flex-col md:flex-row
+                md:items-center
+                md:justify-between
+                gap-8">
+
+        <div>
+
+            <span class="text-sm font-bold text-gray-500">
+                PROMO TERBATAS
+            </span>
+
+            <h2 class="text-3xl font-black mt-2">
+                Temukan harga terbaik
+            </h2>
+
+            <p class="text-gray-600 mt-2">
+                Bandingkan harga dan pilih smartphone yang sesuai.
+            </p>
+
+        </div>
+
+        <a href="#produk"
+            class="rounded-xl bg-black px-6 py-3 text-center font-semibold text-white transition hover:bg-gray-800">
+            Jelajahi produk
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ================= KEUNGGULAN ================= -->
+<section id="keunggulan"
+    class="bg-gray-50 py-20">
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="text-center mb-12">
+
+            <p class="text-sm font-bold tracking-widest text-gray-500">
+                KEUNGGULAN
+            </p>
+
+            <h2 class="text-3xl sm:text-4xl font-black mt-2">
+                Kenapa GadgetSwap?
+            </h2>
+
+        </div>
+
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <div class="bg-white p-6 rounded-2xl">
+
+                <div class="text-3xl">🔒</div>
+
+                <h3 class="font-bold text-lg mt-4">Aman & Terpercaya</h3>
+
+                <p class="text-gray-500 mt-2 text-sm">
+                    Transaksi aman dan proses transparan.
+                </p>
+
+            </div>
+
+
+            <div class="bg-white p-6 rounded-2xl">
+
+                <div class="text-3xl">💰</div>
+
+                <h3 class="font-bold text-lg mt-4">Harga Terbaik</h3>
+
+                <p class="text-gray-500 mt-2 text-sm">
+                    Bandingkan pilihan harga sebelum membeli.
+                </p>
+
+            </div>
+
+
+            <div class="bg-white p-6 rounded-2xl">
+
+                <div class="text-3xl">🚚</div>
+
+                <h3 class="font-bold text-lg mt-4">Pengiriman Cepat</h3>
+
+                <p class="text-gray-500 mt-2 text-sm">
+                    Informasi pengiriman tersedia saat transaksi.
+                </p>
+
+            </div>
+
+
+            <div class="bg-white p-6 rounded-2xl">
+
+                <div class="text-3xl">💬</div>
+
+                <h3 class="font-bold text-lg mt-4">Customer Support</h3>
+
+                <p class="text-gray-500 mt-2 text-sm">
+                    Hubungi tim kami untuk pertanyaan produk.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FAQ ================= -->
+<section id="faq"
+    class="max-w-3xl mx-auto px-4 sm:px-6 py-20">
+
+    <div class="text-center mb-10">
+
+        <p class="text-sm font-bold tracking-widest text-gray-500">FAQ</p>
+
+        <h2 class="text-3xl sm:text-4xl font-black mt-2">Pertanyaan Umum</h2>
+
+    </div>
+
+
+    <div class="space-y-4">
+
+        <details class="group border border-gray-200 rounded-2xl p-5">
+
+            <summary class="font-bold cursor-pointer">
+                Apakah produk GadgetSwap bergaransi?
+            </summary>
+
+            <p class="mt-4 text-gray-500">
+                Informasi garansi dapat berbeda untuk setiap produk. Periksa detail produk sebelum melakukan pemesanan.
+            </p>
+
+        </details>
+
+
+        <details class="group border border-gray-200 rounded-2xl p-5">
+
+            <summary class="font-bold cursor-pointer">
+                Bagaimana cara tukar tambah?
+            </summary>
+
+            <p class="mt-4 text-gray-500">
+                Hubungi tim GadgetSwap untuk informasi penilaian dan ketersediaan layanan tukar tambah.
+            </p>
+
+        </details>
+
+
+        <details class="group border border-gray-200 rounded-2xl p-5">
+
+            <summary class="font-bold cursor-pointer">
+                Apakah website ini sudah menerima pembayaran?
+            </summary>
+
+            <p class="mt-4 text-gray-500">
+                Keranjang pada halaman ini merupakan demo antarmuka. Pembayaran online memerlukan integrasi backend.
+            </p>
+
+        </details>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-black text-white">
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+
+        <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+
+            <div>
+
+                <h2 class="text-2xl font-black">GadgetSwap</h2>
+
+                <p class="text-gray-400 mt-4 text-sm leading-relaxed">
+                    Marketplace gadget untuk menemukan smartphone pilihan dan informasi tukar tambah.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h3 class="font-bold mb-4">Produk</h3>
+
+                <div class="space-y-3 text-sm text-gray-400">
+                    <a href="#produk" class="block hover:text-white">Smartphone</a>
+                    <a href="#produk" class="block hover:text-white">Brand</a>
+                    <a href="#kategori" class="block hover:text-white">Kategori lain</a>
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <h3 class="font-bold mb-4">Layanan</h3>
+
+                <div class="space-y-3 text-sm text-gray-400">
+                    <a href="#tukar" class="block hover:text-white">Tukar Tambah</a>
+                    <a href="#faq" class="block hover:text-white">Bantuan</a>
+                    <a href="#keunggulan" class="block hover:text-white">Keunggulan</a>
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <h3 class="font-bold mb-4">Ikuti Kami</h3>
+
+                <p class="text-sm text-gray-400">Informasi sosial media segera hadir.</p>
+
+            </div>
+
+        </div>
+
+
+        <div class="border-t border-gray-800 mt-10 pt-6 text-sm text-gray-500">
+            © 2026 GadgetSwap. All rights reserved.
+        </div>
+
+    </div>
+
+</footer>
+
+<dialog id="cartDialog" class="w-[min(92vw,36rem)] rounded-2xl p-0 shadow-2xl backdrop:bg-black/50">
+    <div class="p-6 sm:p-8">
+        <div class="flex items-start justify-between gap-4">
+            <div>
+                <p class="text-xs font-bold tracking-widest text-gray-500">GADGETSWAP</p>
+                <h2 class="mt-1 text-2xl font-black">Keranjang</h2>
+            </div>
+            <button id="cartCloseButton" type="button" aria-label="Tutup keranjang"
+                class="flex h-10 w-10 items-center justify-center rounded-full hover:bg-gray-100">×</button>
+        </div>
+        <p id="cartEmpty" class="py-10 text-center text-gray-500">Keranjang masih kosong.</p>
+        <div id="cartItems" class="my-6 max-h-72 space-y-4 overflow-auto"></div>
+        <div class="border-t border-gray-200 pt-4">
+            <div class="flex justify-between font-bold">
+                <span>Subtotal</span>
+                <span id="cartSubtotal">Rp0</span>
+            </div>
+            <p id="checkoutMessage" class="mt-3 text-sm text-gray-500" role="status"></p>
+            <div class="mt-5 grid grid-cols-2 gap-3">
+                <button id="continueShoppingButton" type="button"
+                    class="rounded-xl border border-gray-300 px-4 py-3 font-semibold hover:bg-gray-50">Lanjut belanja</button>
+                <button id="checkoutButton" type="button"
+                    class="rounded-xl bg-black px-4 py-3 font-semibold text-white hover:bg-gray-800">Checkout</button>
+            </div>
+        </div>
+    </div>
+</dialog>
+
+<script src="script.js"></script>
+
+</body>
+</html>
                         class="absolute -top-1 -right-1 w-5 h-5 text-xs
                                bg-black text-white rounded-full
                                flex items-center justify-center">
