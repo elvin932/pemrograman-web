@@ -1,423 +1,787 @@
-const products = [
+"use strict";
 
-    {
-        id: 1,
-        name: "iPhone 15 Pro Max",
-        brand: "Apple",
-        category: "Smartphone",
-        price: 18999000,
-        oldPrice: 20999000,
-        rating: 4.9,
-        stock: 12,
-        badge: "BEST SELLER",
-        image: "https://images.unsplash.com/photo-1592286927505-2fd0e0f0c4b3?auto=format&fit=crop&w=800&q=85"
-    },
+/* ==============================
+   CONFIGURATION
+============================== */
 
-    {
-        id: 2,
-        name: "iPhone 15",
-        brand: "Apple",
-        category: "Smartphone",
-        price: 13999000,
-        oldPrice: 14999000,
-        rating: 4.8,
-        stock: 20,
-        badge: "PROMO",
-        image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=85"
-    },
+const API_URL =
+    "https://dummyjson.com/products/category/smartphones?limit=100";
 
-    {
-        id: 3,
-        name: "iPhone 13",
-        brand: "Apple",
-        category: "Smartphone",
-        price: 8499000,
-        oldPrice: 9999000,
-        rating: 4.9,
-        stock: 15,
-        badge: "BEST SELLER",
-        image: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=800&q=85"
-    },
+const IDR_RATE = 16000;
+const PRODUCTS_PER_PAGE = 8;
 
-    {
-        id: 4,
-        name: "Samsung Galaxy S24 Ultra",
-        brand: "Samsung",
-        category: "Smartphone",
-        price: 17999000,
-        oldPrice: 19999000,
-        rating: 4.9,
-        stock: 8,
-        badge: "PREMIUM",
-        image: "https://images.unsplash.com/photo-1610945265078-7a7b0e6e6b3f?auto=format&fit=crop&w=800&q=85"
-    },
+/* ==============================
+   STATE
+============================== */
 
-    {
-        id: 5,
-        name: "Samsung Galaxy S23",
-        brand: "Samsung",
-        category: "Smartphone",
-        price: 7999000,
-        oldPrice: 8999000,
-        rating: 4.8,
-        stock: 18,
-        badge: "PROMO",
-        image: "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?auto=format&fit=crop&w=800&q=85"
-    },
-
-    {
-        id: 6,
-        name: "Samsung Galaxy A55",
-        brand: "Samsung",
-        category: "Smartphone",
-        price: 5799000,
-        oldPrice: 6299000,
-        rating: 4.7,
-        stock: 24,
-        badge: "NEW",
-        image: "https://images.unsplash.com/photo-1567581935884-3349723552ca?auto=format&fit=crop&w=800&q=85"
-    },
-
-    {
-        id: 7,
-        name: "Xiaomi 14",
-        brand: "Xiaomi",
-        category: "Smartphone",
-        price: 10999000,
-        oldPrice: 11999000,
-        rating: 4.8,
-        stock: 10,
-        badge: "NEW",
-        image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=85"
-    },
-
-    {
-        id: 8,
-        name: "Xiaomi Redmi Note 13",
-        brand: "Xiaomi",
-        category: "Smartphone",
-        price: 3299000,
-        oldPrice: 3799000,
-        rating: 4.6,
-        stock: 30,
-        badge: "PROMO",
-        image: "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?auto=format&fit=crop&w=800&q=85"
-    },
-
-    {
-        id: 9,
-        name: "OPPO Reno 11",
-        brand: "OPPO",
-        category: "Smartphone",
-        price: 5999000,
-        oldPrice: 6799000,
-        rating: 4.7,
-        stock: 16,
-        badge: "PROMO",
-        image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=85"
-    },
-
-    {
-        id: 10,
-        name: "OPPO Find X7",
-        brand: "OPPO",
-        category: "Smartphone",
-        price: 11999000,
-        oldPrice: 12999000,
-        rating: 4.8,
-        stock: 7,
-        badge: "PREMIUM",
-        image: "https://images.unsplash.com/photo-1580910051074-3eb694886505?auto=format&fit=crop&w=800&q=85"
-    },
-
-    {
-        id: 11,
-        name: "Vivo V30",
-        brand: "Vivo",
-        category: "Smartphone",
-        price: 5999000,
-        oldPrice: 6599000,
-        rating: 4.7,
-        stock: 19,
-        badge: "NEW",
-        image: "https://images.unsplash.com/photo-1556656793-08538906a9f8?auto=format&fit=crop&w=800&q=85"
-    },
-
-    {
-        id: 12,
-        name: "Google Pixel 8 Pro",
-        brand: "Google",
-        category: "Smartphone",
-        price: 14999000,
-        oldPrice: 15999000,
-        rating: 4.9,
-        stock: 6,
-        badge: "PREMIUM",
-        image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=85"
-    },
-
-    {
-        id: 13,
-        name: "ASUS ROG Phone 8",
-        brand: "ASUS",
-        category: "Smartphone",
-        price: 13999000,
-        oldPrice: 14999000,
-        rating: 4.9,
-        stock: 9,
-        badge: "GAMING",
-        image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=85"
-    },
-
-    {
-        id: 14,
-        name: "OnePlus 12",
-        brand: "OnePlus",
-        category: "Smartphone",
-        price: 9999000,
-        oldPrice: 10999000,
-        rating: 4.8,
-        stock: 11,
-        badge: "NEW",
-        image: "https://images.unsplash.com/photo-1565849904461-04a58ad377e0?auto=format&fit=crop&w=800&q=85"
-    },
-
-    {
-        id: 15,
-        name: "Realme GT 6",
-        brand: "Realme",
-        category: "Smartphone",
-        price: 6999000,
-        oldPrice: 7499000,
-        rating: 4.7,
-        stock: 21,
-        badge: "PROMO",
-        image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=85"
-    },
-
-    {
-        id: 16,
-        name: "Samsung Galaxy Z Flip",
-        brand: "Samsung",
-        category: "Smartphone",
-        price: 14999000,
-        oldPrice: 16999000,
-        rating: 4.8,
-        stock: 5,
-        badge: "LIMITED",
-        image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=85"
-    }
-
-];
-
-const productGrid = document.getElementById("productGrid");
-const productSearch = document.getElementById("productSearch");
-const brandFilter = document.getElementById("brandFilter");
-const sortFilter = document.getElementById("sortFilter");
-const noResult = document.getElementById("noResult");
-const productPagination = document.getElementById("productPagination");
-const pageSize = 8;
+let products = [];
+let filteredProducts = [];
 let currentPage = 1;
+let cart = [];
+let wishlist = new Set();
+let toastTimer;
 
-const formatPrice = price => new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-    maximumFractionDigits: 0
-}).format(price);
+/* ==============================
+   DOM
+============================== */
 
-const createElement = (tagName, className, text) => {
-    const element = document.createElement(tagName);
-    element.className = className;
+const $ = (selector) => document.querySelector(selector);
 
-    if (text !== undefined) {
-        element.textContent = text;
-    }
+const productGrid = $("#productGrid");
+const loading = $("#loading");
+const errorBox = $("#errorBox");
+const emptyState = $("#emptyState");
+const pagination = $("#pagination");
+const resultCount = $("#resultCount");
 
-    return element;
-};
+const productSearch = $("#productSearch");
+const brandFilter = $("#brandFilter");
+const priceFilter = $("#priceFilter");
+const sortFilter = $("#sortFilter");
+const resetFilter = $("#resetFilter");
 
-function createProductCard(product) {
-    const card = createElement(
-        "article",
-        "group overflow-hidden rounded-2xl bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
-    );
-    const imageContainer = createElement(
-        "div",
-        "relative overflow-hidden bg-gray-100"
-    );
-    const image = createElement(
-        "img",
-        "h-52 w-full object-cover transition duration-300 group-hover:scale-105 sm:h-60"
-    );
-    image.src = product.image;
-    image.alt = product.name;
-    image.loading = "lazy";
+const cartModal = $("#cartModal");
+const cartItems = $("#cartItems");
+const cartEmpty = $("#cartEmpty");
+const cartTotal = $("#cartTotal");
+const cartCount = $("#cartCount");
 
-    const badge = createElement(
-        "span",
-        "absolute left-3 top-3 rounded-full bg-black px-3 py-1 text-xs font-bold text-white",
-        product.badge
-    );
-    const wishlistButton = createElement(
-        "button",
-        "absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white text-xl shadow transition hover:text-red-500",
-        "♡"
-    );
-    wishlistButton.type = "button";
-    wishlistButton.setAttribute("aria-label", `Tambahkan ${product.name} ke wishlist`);
-    wishlistButton.setAttribute("aria-pressed", "false");
-    wishlistButton.addEventListener("click", () => {
-        const isWishlisted = wishlistButton.getAttribute("aria-pressed") === "true";
-        wishlistButton.setAttribute("aria-pressed", String(!isWishlisted));
-        wishlistButton.textContent = isWishlisted ? "♡" : "♥";
-        wishlistButton.classList.toggle("text-red-500", !isWishlisted);
+const toast = $("#toast");
+const toastMessage = $("#toastMessage");
+
+/* ==============================
+   INITIALIZATION
+============================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+    setupEvents();
+    updateCartUI();
+    loadProducts();
+});
+
+/* ==============================
+   EVENTS
+============================== */
+
+function setupEvents() {
+    productSearch.addEventListener("input", handleFilters);
+    brandFilter.addEventListener("change", handleFilters);
+    priceFilter.addEventListener("change", handleFilters);
+    sortFilter.addEventListener("change", handleFilters);
+    resetFilter.addEventListener("click", resetFilters);
+
+    $("#cartBtn").addEventListener("click", openCart);
+    $("#closeCart").addEventListener("click", closeCart);
+    $("#modalOverlay").addEventListener("click", closeCart);
+    $("#checkoutBtn").addEventListener("click", checkout);
+
+    $("#menuBtn").addEventListener("click", () => {
+        $("#navMenu").classList.toggle("active");
     });
 
-    imageContainer.append(image, badge, wishlistButton);
-
-    const content = createElement("div", "p-4 sm:p-5");
-    const category = createElement(
-        "p",
-        "text-xs font-bold uppercase tracking-wider text-gray-500",
-        `${product.brand} · ${product.category}`
-    );
-    const name = createElement(
-        "h3",
-        "mt-2 min-h-12 font-bold text-gray-900",
-        product.name
-    );
-    const rating = createElement(
-        "p",
-        "mt-2 text-sm text-gray-600",
-        `★ ${product.rating.toFixed(1)} · Stok ${product.stock}`
-    );
-    const priceRow = createElement(
-        "div",
-        "mt-4 flex flex-wrap items-baseline gap-x-2 gap-y-1"
-    );
-    priceRow.append(
-        createElement("strong", "text-lg font-black text-gray-950", formatPrice(product.price)),
-        createElement("del", "text-sm text-gray-400", formatPrice(product.oldPrice))
-    );
-
-    const addButton = createElement(
-        "button",
-        "mt-4 w-full rounded-xl bg-black px-4 py-3 text-sm font-semibold text-white transition hover:bg-gray-800",
-        "Tambah ke Keranjang"
-    );
-    addButton.type = "button";
-    addButton.addEventListener("click", () => {
-        addButton.textContent = "Ditambahkan ✓";
-        addButton.classList.replace("bg-black", "bg-green-700");
-        addButton.classList.replace("hover:bg-gray-800", "hover:bg-green-800");
+    $("#navSearchBtn").addEventListener("click", () => {
+        $("#devices").scrollIntoView({ behavior: "smooth" });
 
         window.setTimeout(() => {
-            addButton.textContent = "Tambah ke Keranjang";
-            addButton.classList.replace("bg-green-700", "bg-black");
-            addButton.classList.replace("hover:bg-green-800", "hover:bg-gray-800");
-        }, 1500);
+            productSearch.focus();
+        }, 450);
     });
 
-    content.append(category, name, rating, priceRow, addButton);
-    card.append(imageContainer, content);
-    return card;
-}
-
-function getFilteredProducts() {
-    const keyword = productSearch.value.trim().toLocaleLowerCase("id-ID");
-    const selectedBrand = brandFilter.value;
-    const filteredProducts = products.filter(product => {
-        const matchesSearch = `${product.name} ${product.brand} ${product.category}`
-            .toLocaleLowerCase("id-ID")
-            .includes(keyword);
-        const matchesBrand = selectedBrand === "all" || product.brand === selectedBrand;
-
-        return matchesSearch && matchesBrand;
+    $("#tradeBtn").addEventListener("click", () => {
+        showToast("Fitur trade-in siap dikembangkan!");
     });
 
-    switch (sortFilter.value) {
-        case "low":
-            filteredProducts.sort((first, second) => first.price - second.price);
-            break;
-        case "high":
-            filteredProducts.sort((first, second) => second.price - first.price);
-            break;
-        case "rating":
-            filteredProducts.sort((first, second) => second.rating - first.rating);
-            break;
-    }
+    document.querySelectorAll(".category-card").forEach((button) => {
+        button.addEventListener("click", () => {
+            const category = button.dataset.category;
 
-    return filteredProducts;
+            productSearch.value = "";
+            brandFilter.value = "all";
+            sortFilter.value = "default";
+
+            if (category === "Promo") {
+                priceFilter.value = "under5";
+            } else if (category === "Galaxy Premium") {
+                priceFilter.value = "above10";
+            } else {
+                priceFilter.value = "all";
+            }
+
+            handleFilters();
+
+            $("#devices").scrollIntoView({
+                behavior: "smooth"
+            });
+        });
+    });
+
+    document.querySelectorAll(".main-nav a").forEach((link) => {
+        link.addEventListener("click", () => {
+            $("#navMenu").classList.remove("active");
+        });
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            closeCart();
+        }
+    });
+
+    /* Jika jaringan terputus saat aplikasi digunakan */
+    window.addEventListener("offline", () => {
+        showError(
+            "Tidak ada jaringan internet",
+            "Koneksi internet terputus. Periksa Wi-Fi atau data seluler Anda, lalu tekan Coba lagi."
+        );
+    });
+
+    /* Jika koneksi kembali tersedia */
+    window.addEventListener("online", () => {
+        showToast("Koneksi internet kembali tersedia.");
+
+        if (products.length === 0) {
+            loadProducts();
+        }
+    });
 }
 
-function renderPagination(pageCount) {
-    productPagination.replaceChildren();
-    productPagination.classList.toggle("hidden", pageCount <= 1);
+/* ==============================
+   TASK 1: CONNECT TO API
+============================== */
 
-    if (pageCount <= 1) {
+async function loadProducts() {
+    showLoading();
+
+    /*
+     * Periksa koneksi sebelum mengirim request.
+     * Ini mencegah loading terus-menerus saat offline.
+     */
+    if (!navigator.onLine) {
+        showError(
+            "Tidak ada jaringan internet",
+            "Periksa Wi-Fi atau data seluler Anda, lalu tekan Coba lagi."
+        );
+
         return;
     }
 
-    const addPageButton = (label, page, isCurrent = false) => {
-        const button = createElement(
-            "button",
-            isCurrent
-                ? "h-10 min-w-10 rounded-xl bg-black px-3 text-white"
-                : "h-10 min-w-10 rounded-xl border border-gray-200 px-3 hover:bg-gray-100",
-            label
-        );
-        button.type = "button";
-        button.setAttribute("aria-label", `Halaman ${page}`);
+    const controller = new AbortController();
 
-        if (isCurrent) {
-            button.setAttribute("aria-current", "page");
+    /*
+     * Batas waktu request 12 detik.
+     * Jika terlalu lama, request dibatalkan.
+     */
+    const timeoutId = window.setTimeout(() => {
+        controller.abort();
+    }, 12000);
+
+    try {
+        const response = await fetch(API_URL, {
+            signal: controller.signal,
+            headers: {
+                Accept: "application/json"
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(
+                `Server mengembalikan status ${response.status}`
+            );
         }
+
+        /* TASK 2: Membaca JSON dari API */
+        const data = await response.json();
+
+        if (!Array.isArray(data.products)) {
+            throw new Error("Format data dari API tidak sesuai.");
+        }
+
+        /* Ubah data API menjadi struktur data aplikasi */
+        products = data.products.map(normalizeProduct);
+
+        populateBrands();
+
+        filteredProducts = [...products];
+        currentPage = 1;
+
+        renderProducts();
+
+    } catch (error) {
+        console.error("Gagal memuat produk:", error);
+
+        if (!navigator.onLine) {
+            showError(
+                "Tidak ada jaringan internet",
+                "Periksa Wi-Fi atau data seluler Anda, lalu tekan Coba lagi."
+            );
+        } else if (error.name === "AbortError") {
+            showError(
+                "Koneksi terlalu lama",
+                "Server belum merespons setelah 12 detik. Periksa koneksi Anda, lalu coba lagi."
+            );
+        } else {
+            showError(
+                "Gagal memuat produk",
+                "Data belum bisa diambil dari server. Periksa koneksi internet atau coba lagi beberapa saat."
+            );
+        }
+
+    } finally {
+        /*
+         * Selalu bersihkan timer meskipun request berhasil
+         * atau mengalami error.
+         */
+        window.clearTimeout(timeoutId);
+    }
+}
+
+/* ==============================
+   NORMALIZE API DATA
+============================== */
+
+function normalizeProduct(item) {
+    const price = Math.round(
+        Number(item.price || 0) * IDR_RATE
+    );
+
+    return {
+        id: Number(item.id),
+        title: String(item.title || "Smartphone"),
+        brand: String(item.brand || "Generic"),
+        price,
+        oldPrice: Math.round(
+            price * (
+                1 + Number(item.discountPercentage || 0) / 100
+            )
+        ),
+        rating: Number(item.rating || 0),
+        stock: Number(item.stock || 0),
+        thumbnail: String(item.thumbnail || ""),
+        description: String(item.description || ""),
+        discount: Number(item.discountPercentage || 0)
+    };
+}
+
+/* ==============================
+   BRAND FILTER
+============================== */
+
+function populateBrands() {
+    const selected = brandFilter.value || "all";
+
+    const brands = [
+        ...new Set(products.map((product) => product.brand))
+    ].sort((a, b) => a.localeCompare(b));
+
+    brandFilter.replaceChildren(
+        new Option("All brands", "all")
+    );
+
+    brands.forEach((brand) => {
+        brandFilter.add(new Option(brand, brand));
+    });
+
+    brandFilter.value = brands.includes(selected)
+        ? selected
+        : "all";
+}
+
+/* ==============================
+   SEARCH AND FILTER
+============================== */
+
+function handleFilters() {
+    const keyword = productSearch.value
+        .trim()
+        .toLowerCase();
+
+    const brand = brandFilter.value;
+    const price = priceFilter.value;
+
+    filteredProducts = products.filter((product) => {
+        const matchesSearch =
+            product.title.toLowerCase().includes(keyword) ||
+            product.brand.toLowerCase().includes(keyword);
+
+        const matchesBrand =
+            brand === "all" || product.brand === brand;
+
+        let matchesPrice = true;
+
+        if (price === "under5") {
+            matchesPrice = product.price < 5000000;
+        }
+
+        if (price === "5to10") {
+            matchesPrice =
+                product.price >= 5000000 &&
+                product.price <= 10000000;
+        }
+
+        if (price === "above10") {
+            matchesPrice = product.price > 10000000;
+        }
+
+        return matchesSearch && matchesBrand && matchesPrice;
+    });
+
+    sortProducts(sortFilter.value);
+
+    currentPage = 1;
+
+    renderProducts();
+}
+
+/* ==============================
+   SORTING
+============================== */
+
+function sortProducts(sort) {
+    if (sort === "price-low") {
+        filteredProducts.sort((a, b) => a.price - b.price);
+    }
+
+    if (sort === "price-high") {
+        filteredProducts.sort((a, b) => b.price - a.price);
+    }
+
+    if (sort === "name") {
+        filteredProducts.sort(
+            (a, b) => a.title.localeCompare(b.title)
+        );
+    }
+
+    if (sort === "rating") {
+        filteredProducts.sort((a, b) => b.rating - a.rating);
+    }
+}
+
+/* ==============================
+   RESET FILTER
+============================== */
+
+function resetFilters() {
+    productSearch.value = "";
+    brandFilter.value = "all";
+    priceFilter.value = "all";
+    sortFilter.value = "default";
+
+    filteredProducts = [...products];
+    currentPage = 1;
+
+    renderProducts();
+}
+
+/* ==============================
+   TASK 2: DISPLAY API DATA
+============================== */
+
+function renderProducts() {
+    hideLoading();
+    hideError();
+
+    productGrid.replaceChildren();
+    pagination.replaceChildren();
+
+    resultCount.textContent =
+        `${filteredProducts.length} perangkat ditemukan`;
+
+    if (filteredProducts.length === 0) {
+        emptyState.classList.remove("hidden");
+        return;
+    }
+
+    emptyState.classList.add("hidden");
+
+    const totalPages = Math.ceil(
+        filteredProducts.length / PRODUCTS_PER_PAGE
+    );
+
+    const start = (currentPage - 1) * PRODUCTS_PER_PAGE;
+
+    filteredProducts
+        .slice(start, start + PRODUCTS_PER_PAGE)
+        .forEach((product) => {
+            productGrid.appendChild(createProductCard(product));
+        });
+
+    renderPagination(totalPages);
+}
+
+/* ==============================
+   CREATE PRODUCT CARD
+============================== */
+
+function createProductCard(product) {
+    const card = document.createElement("article");
+    card.className = "product-card";
+
+    const image = document.createElement("div");
+    image.className = "product-image";
+
+    const img = document.createElement("img");
+
+    img.src = product.thumbnail ||
+        "https://placehold.co/500x500?text=Gadget";
+
+    img.alt = product.title;
+    img.loading = "lazy";
+
+    img.onerror = () => {
+        img.onerror = null;
+        img.src = "https://placehold.co/500x500?text=Gadget";
+    };
+
+    const badge = document.createElement("span");
+    badge.className = "product-badge";
+
+    badge.textContent = product.discount >= 10
+        ? `-${Math.round(product.discount)}%`
+        : "FEATURED";
+
+    const wishButton = document.createElement("button");
+
+    wishButton.type = "button";
+
+    wishButton.className =
+        `wishlist-btn${wishlist.has(product.id) ? " active" : ""}`;
+
+    wishButton.setAttribute(
+        "aria-label",
+        wishlist.has(product.id)
+            ? "Hapus dari wishlist"
+            : "Tambah ke wishlist"
+    );
+
+    wishButton.textContent =
+        wishlist.has(product.id) ? "♥" : "♡";
+
+    wishButton.addEventListener("click", () => {
+        toggleWishlist(product.id, wishButton);
+    });
+
+    image.append(img, badge, wishButton);
+
+    const body = document.createElement("div");
+    body.className = "product-body";
+
+    const brand = document.createElement("div");
+    brand.className = "product-brand";
+    brand.textContent = product.brand;
+
+    const title = document.createElement("h3");
+    title.className = "product-name";
+    title.textContent = product.title;
+
+    const rating = document.createElement("div");
+    rating.className = "product-rating";
+
+    const stars = document.createElement("span");
+    stars.className = "stars";
+
+    stars.textContent = "★".repeat(
+        Math.max(0, Math.min(5, Math.round(product.rating)))
+    );
+
+    const ratingValue = document.createElement("span");
+    ratingValue.textContent = product.rating.toFixed(1);
+
+    rating.append(stars, ratingValue);
+
+    const price = document.createElement("div");
+    price.className = "product-price";
+    price.append(document.createTextNode(formatRupiah(product.price)));
+
+    const oldPrice = document.createElement("span");
+    oldPrice.className = "product-old-price";
+    oldPrice.textContent = formatRupiah(product.oldPrice);
+
+    price.appendChild(oldPrice);
+
+    const actions = document.createElement("div");
+    actions.className = "product-actions";
+
+    const addButton = document.createElement("button");
+    addButton.type = "button";
+    addButton.className = "btn btn-primary";
+    addButton.textContent = "Add to bag";
+
+    addButton.addEventListener("click", () => {
+        addToCart(product);
+    });
+
+    actions.appendChild(addButton);
+
+    body.append(brand, title, rating, price, actions);
+    card.append(image, body);
+
+    return card;
+}
+
+/* ==============================
+   PAGINATION
+============================== */
+
+function renderPagination(totalPages) {
+    if (totalPages <= 1) {
+        return;
+    }
+
+    for (let page = 1; page <= totalPages; page += 1) {
+        const button = document.createElement("button");
+
+        button.type = "button";
+
+        button.className =
+            `page-btn${page === currentPage ? " active" : ""}`;
+
+        button.textContent = String(page);
+        button.setAttribute("aria-label", `Halaman ${page}`);
 
         button.addEventListener("click", () => {
             currentPage = page;
             renderProducts();
+
+            $("#devices").scrollIntoView({
+                behavior: "smooth"
+            });
         });
-        productPagination.append(button);
-    };
 
-    if (currentPage > 1) {
-        addPageButton("←", currentPage - 1);
-    }
-
-    for (let page = 1; page <= pageCount; page++) {
-        addPageButton(String(page), page, page === currentPage);
-    }
-
-    if (currentPage < pageCount) {
-        addPageButton("→", currentPage + 1);
+        pagination.appendChild(button);
     }
 }
 
-function renderProducts() {
-    const filteredProducts = getFilteredProducts();
-    const pageCount = Math.ceil(filteredProducts.length / pageSize);
-    currentPage = Math.min(currentPage, Math.max(pageCount, 1));
-    const startIndex = (currentPage - 1) * pageSize;
-    const visibleProducts = filteredProducts.slice(startIndex, startIndex + pageSize);
+/* ==============================
+   WISHLIST
+============================== */
 
-    productGrid.replaceChildren(...visibleProducts.map(createProductCard));
-    noResult.classList.toggle("hidden", filteredProducts.length > 0);
-    renderPagination(pageCount);
+function toggleWishlist(id, button) {
+    if (wishlist.has(id)) {
+        wishlist.delete(id);
+
+        button.classList.remove("active");
+        button.textContent = "♡";
+        button.setAttribute("aria-label", "Tambah ke wishlist");
+
+        showToast("Dihapus dari wishlist");
+    } else {
+        wishlist.add(id);
+
+        button.classList.add("active");
+        button.textContent = "♥";
+        button.setAttribute("aria-label", "Hapus dari wishlist");
+
+        showToast("Ditambahkan ke wishlist ♥");
+    }
 }
 
-productSearch.addEventListener("input", () => {
-    currentPage = 1;
-    renderProducts();
-});
+/* ==============================
+   CART
+============================== */
 
-brandFilter.addEventListener("change", () => {
-    currentPage = 1;
-    renderProducts();
-});
+function addToCart(product) {
+    const existing = cart.find(
+        (item) => item.id === product.id
+    );
 
-sortFilter.addEventListener("change", () => {
-    currentPage = 1;
-    renderProducts();
-});
+    if (existing) {
+        existing.quantity += 1;
+    } else {
+        cart.push({
+            ...product,
+            quantity: 1
+        });
+    }
 
-renderProducts();
+    updateCartUI();
+
+    showToast(`${product.title} ditambahkan ke keranjang`);
+}
+
+function removeFromCart(id) {
+    cart = cart.filter((item) => item.id !== id);
+
+    updateCartUI();
+    renderCart();
+
+    showToast("Produk dihapus dari keranjang");
+}
+
+function updateCartUI() {
+    cartCount.textContent = String(
+        cart.reduce((sum, item) => sum + item.quantity, 0)
+    );
+
+    cartTotal.textContent = formatRupiah(
+        cart.reduce(
+            (sum, item) => sum + item.price * item.quantity,
+            0
+        )
+    );
+}
+
+/* ==============================
+   CART MODAL
+============================== */
+
+function openCart() {
+    cartModal.classList.remove("hidden");
+    document.body.classList.add("modal-open");
+
+    renderCart();
+}
+
+function closeCart() {
+    cartModal.classList.add("hidden");
+    document.body.classList.remove("modal-open");
+}
+
+function renderCart() {
+    cartItems.replaceChildren();
+
+    const isEmpty = cart.length === 0;
+
+    cartItems.classList.toggle("hidden", isEmpty);
+    cartEmpty.classList.toggle("hidden", !isEmpty);
+
+    cart.forEach((item) => {
+        const row = document.createElement("div");
+        row.className = "cart-item";
+
+        const imageWrap = document.createElement("div");
+        imageWrap.className = "cart-item-image";
+
+        const image = document.createElement("img");
+
+        image.src = item.thumbnail ||
+            "https://placehold.co/100x100?text=Gadget";
+
+        image.alt = item.title;
+
+        image.onerror = () => {
+            image.onerror = null;
+            image.src = "https://placehold.co/100x100?text=Gadget";
+        };
+
+        imageWrap.appendChild(image);
+
+        const info = document.createElement("div");
+        info.className = "cart-item-info";
+
+        const title = document.createElement("h4");
+        title.textContent = item.title;
+
+        const detail = document.createElement("p");
+        detail.textContent =
+            `${formatRupiah(item.price)} × ${item.quantity}`;
+
+        info.append(title, detail);
+
+        const remove = document.createElement("button");
+        remove.type = "button";
+        remove.className = "cart-item-remove";
+        remove.textContent = "Hapus";
+
+        remove.addEventListener("click", () => {
+            removeFromCart(item.id);
+        });
+
+        row.append(imageWrap, info, remove);
+        cartItems.appendChild(row);
+    });
+}
+
+/* ==============================
+   CHECKOUT DEMO
+============================== */
+
+function checkout() {
+    if (cart.length === 0) {
+        showToast("Keranjang masih kosong");
+        return;
+    }
+
+    showToast("Checkout demo berhasil diproses!");
+}
+
+/* ==============================
+   TASK 3: LOADING AND ERROR STATE
+============================== */
+
+function showLoading() {
+    loading.classList.remove("hidden");
+    errorBox.classList.add("hidden");
+    emptyState.classList.add("hidden");
+
+    productGrid.replaceChildren();
+    pagination.replaceChildren();
+
+    resultCount.textContent = "Mengambil data produk...";
+}
+
+function hideLoading() {
+    loading.classList.add("hidden");
+}
+
+function showError(title, description) {
+    hideLoading();
+
+    errorBox.classList.remove("hidden");
+    emptyState.classList.add("hidden");
+
+    productGrid.replaceChildren();
+    pagination.replaceChildren();
+
+    resultCount.textContent = "Data tidak tersedia";
+    errorBox.replaceChildren();
+
+    const icon = document.createElement("div");
+    icon.className = "error-icon";
+    icon.textContent = "⚠️";
+
+    const heading = document.createElement("h3");
+    heading.textContent = title;
+
+    const message = document.createElement("p");
+    message.textContent = description;
+
+    const retry = document.createElement("button");
+    retry.type = "button";
+    retry.className = "btn btn-primary";
+    retry.textContent = "Coba lagi";
+
+    retry.addEventListener("click", loadProducts);
+
+    errorBox.append(icon, heading, message, retry);
+}
+
+function hideError() {
+    errorBox.classList.add("hidden");
+}
+
+/* ==============================
+   CURRENCY FORMAT
+============================== */
+
+function formatRupiah(value) {
+    return new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        maximumFractionDigits: 0
+    }).format(value);
+}
+
+/* ==============================
+   TOAST NOTIFICATION
+============================== */
+
+function showToast(message) {
+    toastMessage.textContent = message;
+    toast.classList.add("show");
+
+    window.clearTimeout(toastTimer);
+
+    toastTimer = window.setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2800);
+}
